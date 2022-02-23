@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import DataGrid from 'react-data-grid';
+import data from './TableData';
+import { generateColumns, makeCountByAge, countMakes } from './data-utils';
+import { VictoryBar, VictoryChart, VictoryScatter } from 'victory';
+import { VictoryPie } from 'victory';
 
-function App() {
+export default function App() {
+  // console.log(countMakes(data));
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      Test
+      <DataGrid columns={generateColumns(data)} rows={data} />;
+      <VictoryChart domainPadding={20}>
+        <VictoryBar data={makeCountByAge(data)} x="make" y="averageAge" />
+      </VictoryChart>
+      <VictoryPie
+        data={countMakes(data)}
+        labelPlacement={'parallel'}
+        style={{ labels: { fontSize: 4 } }}
+      />
+      <VictoryScatter data={countMakes(data)} />
+    </>
   );
 }
-
-export default App;
